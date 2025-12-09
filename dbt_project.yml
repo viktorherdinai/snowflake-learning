@@ -1,7 +1,8 @@
-name: USER_24_PUBLIC__22snowflake_learning_22
+name: my_weather_app
 version: 1.0.0
 config-version: 2
-profile: USER_24_PUBLIC__22snowflake_learning_22
+profile: my_weather_app
+
 model-paths:
   - models
 analysis-paths:
@@ -14,6 +15,16 @@ macro-paths:
   - macros
 snapshot-paths:
   - snapshots
+
 models:
-  USER_24_PUBLIC__22snowflake_learning_22:
-    +materialized: view
+  my_weather_app:
+    +database: SNOWFLAKE_LEARNING_DB
+    bronze:
+      +schema: bronz
+      +materialized: view
+    silver:
+      +schema: silver
+      +materialized: view
+    gold:
+      +schema: gold
+      +materialized: table
