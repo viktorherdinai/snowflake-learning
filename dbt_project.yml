@@ -20,7 +20,7 @@ models:
   my_weather_app:
     +database: SNOWFLAKE_LEARNING_DB
     bronze:
-      +schema: bronz
+      +schema: bronze
       +materialized: view
     silver:
       +schema: silver
