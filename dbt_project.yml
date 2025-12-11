@@ -18,13 +18,16 @@ snapshot-paths:
 
 models:
   my_weather_app:
-    +database: SNOWFLAKE_LEARNING_DB
+    +database: WEATHER_DB
     bronze:
-      +schema: bronze
-      +materialized: view
-    silver:
-      +schema: silver
-      +materialized: view
-    gold:
-      +schema: gold
+      +schema: BRONZE
       +materialized: table
+    silver:
+      +schema: SILVER
+      +materialized: table
+    gold:
+      +schema: GOLD
+      +materialized: table
+
+seeds:
+  +schema: raw_data

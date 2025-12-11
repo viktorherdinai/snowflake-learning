@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table', alias='hourly_weather') }}
 
 SELECT
 $1 AS raw_json

@@ -2,7 +2,7 @@
 
 
 WITH weather AS (
-    SELECT PARSE_JSON(variant_col) AS data FROM {{ ref("raw_bronze_weather") }}
+    SELECT PARSE_JSON(raw_json) AS data FROM {{ ref("raw_bronze_weather") }}
 )
 
 SELECT
