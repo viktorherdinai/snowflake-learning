@@ -1,4 +1,5 @@
 SELECT
-  $1 AS raw_json
+    PARSE_JSON(raw_json)::VARIANT AS parsed_json,
+    * EXCLUDE RAW_JSON
 FROM
-  @SNOWFLAKE_LEARNING_DB.PUBLIC.WEATHER_RAW (FILE_FORMAT => "JSON")
+    {{ ref('raw', 'weather') }}

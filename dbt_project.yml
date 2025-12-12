@@ -20,14 +20,14 @@ models:
   my_weather_app:
     +database: WEATHER_DB
     bronze:
-      +schema: BRONZE
+      +schema: "BRONZE"
       +materialized: table
     silver:
-      +schema: SILVER
+      +schema: "SILVER"
       +materialized: table
     gold:
-      +schema: GOLD
+      +schema: "GOLD"
       +materialized: table
 
 seeds:
-  +schema: raw_data
+  +schema: "RAW_DATA"

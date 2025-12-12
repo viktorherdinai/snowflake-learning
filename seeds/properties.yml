@@ -4,7 +4,7 @@ seeds:
   - name: dim_city
     description: "Table containing city records."
     config:
-      alias: dim_city_alias
+      alias: city # alias table name
     columns:
       - name: latitude
         description: "Latitude."
@@ -21,7 +21,7 @@ seeds:
   - name: dim_country
     description: "Table containing country records."
     config:
-      alias: dim_country_as
+      alias: country
     columns:
       - name: country
         description: "Country name."
