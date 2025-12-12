@@ -1,0 +1,3 @@
+CREATE TABLE IF NOT EXISTS WEATHER_DB.RAW.WEATHER (
+  raw_json VARIANT, filename STRING, load_timestamp TIMESTAMP
+)

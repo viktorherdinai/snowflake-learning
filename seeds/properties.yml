@@ -1,0 +1,34 @@
+version: 2
+
+seeds:
+  - name: dim_city
+    description: "Table containing city records."
+    config:
+      alias: dim_city_alias
+    columns:
+      - name: latitude
+        description: "Latitude."
+      - name: longitude
+        description: "Longitude."
+      - name: city
+        description: "Name of the city. PK"
+        tests:
+          - unique
+          - not_null
+      - name: country
+        description: "Country the city is located in."
+
+  - name: dim_country
+    description: "Table containing country records."
+    config:
+      alias: dim_country_as
+    columns:
+      - name: country
+        description: "Country name."
+        tests:
+          - unique
+          - not_null
+      - name: country_code
+        description: "Country code."
+      - name: region
+        description: "Region."

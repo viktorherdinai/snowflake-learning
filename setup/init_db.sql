@@ -1,0 +1,19 @@
+USE ROLE ACCOUNTADMIN;
+
+SET db = 'WEATHER_DB';
+SET raw = $db || '.RAW';
+SET bronze = $db || '.BRONZE';
+SET silver = $db || '.SILVER';
+SET gold = $db || '.GOLD';
+SET stage_name = $raw || '.UPLOADS';
+
+CREATE DATABASE IF NOT EXISTS IDENTIFIER($db);
+
+CREATE SCHEMA IF NOT EXISTS IDENTIFIER($raw);
+CREATE SCHEMA IF NOT EXISTS IDENTIFIER($bronze);
+CREATE SCHEMA IF NOT EXISTS IDENTIFIER($silver);
+CREATE SCHEMA IF NOT EXISTS IDENTIFIER($gold);
+
+CREATE STAGE IF NOT EXISTS IDENTIFIER($stage_name) 
+	DIRECTORY = ( ENABLE = true ) 
+	COMMENT = 'Stage that contains weather json data';

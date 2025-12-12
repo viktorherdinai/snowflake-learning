@@ -2,6 +2,7 @@ my_weather_app:
   target: dev
   outputs:
     dev:
+      user: nope
       type: snowflake
       role: ACCOUNTADMIN
       warehouse: COMPUTE_WH

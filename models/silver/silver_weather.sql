@@ -1,8 +1,5 @@
-{{ config(materialized='table') }}
-
-
 WITH weather AS (
-    SELECT PARSE_JSON(raw_json) AS data FROM {{ ref("raw_bronze_weather") }}
+    SELECT PARSE_JSON(raw_json) AS data FROM {{ ref("bronze_weather") }}
 )
 
 SELECT
@@ -16,4 +13,4 @@ FROM weather,
 LATERAL FLATTEN(input => data:hourly.temperature_2m) as hourly,
 LATERAL FLATTEN(input => data:hourly.time) as times
 WHERE hourly.index = times.index
-ORDER BY time;
+ORDER BY time
