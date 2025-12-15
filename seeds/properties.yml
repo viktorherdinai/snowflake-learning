@@ -4,7 +4,7 @@ seeds:
   - name: dim_city
     description: "Table containing city records."
     config:
-      alias: city # alias table name
+      alias: city # physical table name, logical remains the file name
     columns:
       - name: latitude
         description: "Latitude."
