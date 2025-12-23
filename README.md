@@ -1,2 +1,2 @@
-# spotify-snowflake
-Personal training on snowflake/dbt using spotify data
+# snowflake-learning
+Personal training on snowflake/dbt using weather data
