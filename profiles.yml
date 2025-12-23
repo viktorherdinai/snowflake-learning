@@ -1,9 +1,10 @@
-USER_24_PUBLIC__22snowflake_learning_22:
+my_weather_app:
   target: dev
   outputs:
     dev:
+      user: nope
       type: snowflake
       role: ACCOUNTADMIN
       warehouse: COMPUTE_WH
-      database: SNOWFLAKE_LEARNING_DB
+      database: WEATHER_DB
       schema: PUBLIC
