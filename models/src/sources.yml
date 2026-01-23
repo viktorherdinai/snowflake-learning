@@ -1,3 +1,4 @@
+# Files that are existing outside dbt
 version: 2
 
 sources:

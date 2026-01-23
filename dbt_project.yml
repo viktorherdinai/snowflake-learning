@@ -31,3 +31,7 @@ models:
 
 seeds:
   +schema: SILVER
+
+snapshots:
+  +target_schema: SNAPSHOTS
+

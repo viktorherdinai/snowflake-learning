@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: fact_weather_enriched
+    description: "Enriched weather facts with city and country dimensions"
+    columns:
+      - name: temperature
+        description: "Temperature reading in Celsius"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: -100
+              max_value: 60
+
+      - name: city
+        description: "City name"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_city')
+              field: city
+
+      - name: country
+        description: "Country name"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_country')
+              field: country
+
+      - name: time
+        description: "Timestamp of the weather reading"
+        tests:
+          - not_null
+
+      - name: latitude
+        description: "Latitude coordinate"
+        tests:
+          - not_null
+
+      - name: longitude
+        description: "Longitude coordinate"
+        tests:
+          - not_null
+
+  - name: silver_weather
+    description: "Cleaned and transformed weather data"
+    columns:
+      - name: temperature
+        tests:
+          - not_null
+
+      - name: time
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: warn  # Only warn, don't fail
+
