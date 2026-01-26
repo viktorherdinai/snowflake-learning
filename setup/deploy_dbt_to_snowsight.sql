@@ -43,14 +43,9 @@ SHOW GIT REPOSITORIES IN SCHEMA WEATHER_DB.RAW;
 -- This creates a native Snowflake dbt project that can be managed in Snowsight
 
 CREATE DBT PROJECT IF NOT EXISTS WEATHER_DB.RAW.WEATHER_DBT_PROJECT
-  WAREHOUSE = COMPUTE_WH
-  GIT_REPOSITORY = WEATHER_DB.RAW.WEATHER_DBT_REPO
-  GIT_BRANCH = 'main'  -- or 'master', depending on your repo
-  COMMENT = 'Weather data transformation dbt project';
-
--- Set default target (optional)
-ALTER DBT PROJECT WEATHER_DB.RAW.WEATHER_DBT_PROJECT
-  SET DEFAULT_TARGET = 'dev';
+  FROM '@WEATHER_DB.RAW.WEATHER_DBT_REPO/branches/main'
+  COMMENT = 'Weather data transformation dbt project'
+  DEFAULT_TARGET = 'dev';
 
 -- Verify the dbt project was created
 SHOW DBT PROJECTS IN SCHEMA WEATHER_DB.RAW;
@@ -58,7 +53,7 @@ SHOW DBT PROJECTS IN SCHEMA WEATHER_DB.RAW;
 -- ============================================================================
 -- Step 4: Grant Permissions (if needed for other roles)
 -- ============================================================================
-
+DESCRIBE DBT PROJECT WEATHER_DB.RAW.WEATHER_DBT_PROJECT;
 -- Example: Grant usage to other roles
 -- GRANT USAGE ON DBT PROJECT WEATHER_DB.RAW.WEATHER_DBT_PROJECT TO ROLE DEVELOPER;
 
