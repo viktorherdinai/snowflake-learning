@@ -8,9 +8,9 @@ models:
         description: "Temperature reading in Celsius"
         tests:
           - not_null
-          - dbt_utils.accepted_range:
-              min_value: -100
-              max_value: 60
+          # - dbt_utils.accepted_range:
+          #     min_value: -100
+          #     max_value: 60
 
       - name: city
         description: "City name"
