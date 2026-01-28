@@ -11,16 +11,18 @@ This project demonstrates a modern data pipeline using:
 ## 📂 Project Structure
 ```
 ├── models/              # dbt transformation models
-│   ├── bronze/         # Raw data parsing
-│   ├── silver/         # Cleaned & enriched data
-│   ├── gold/           # Business metrics & aggregations
-│   └── src/            # Source definitions
-├── seeds/              # Reference data (dimensions)
+│   ├── bronze/         # Raw data parsing (bronze_weather.sql)
+│   ├── silver/         # Cleaned & enriched data (silver_weather.sql, fact_weather_enriched.sql)
+│   ├── gold/           # Business metrics & aggregations (avg_temp_by_country.sql, min_temp_by_city.py)
+│   └── src/            # Source definitions (sources.yml)
+├── seeds/              # Reference data (dim_city.csv, dim_country.csv)
 ├── snapshots/          # Historical dimension tracking (SCD Type 2)
 ├── tests/              # Data quality tests
 ├── analyses/           # Ad-hoc analytical queries
-├── macros/             # Reusable dbt macros
-└── setup/              # Database initialization scripts
+├── macros/             # Reusable dbt macros (generate_schema_name.sql, round_coordinates.sql)
+├── setup/              # Database & Snowflake initialization scripts
+├── raw-data/           # Local JSON files from API fetches
+└── main.py             # Python script to fetch weather data from Open-Meteo API
 ```
 
 ## 🚀 Quick Start
@@ -36,9 +38,11 @@ $env:SNOWFLAKE_PASSWORD="your_password"
 ### 2. Run Setup Scripts in Snowflake UI
 ```sql
 -- In Snowflake, run these in order:
-setup/init_db.sql        -- Create database & schemas
-setup/init_tables.sql    -- Create raw tables
-setup/load_raw_data.sql  -- Load data from stage
+setup/init_db.sql              -- Create database (WEATHER_DB) & schemas (RAW, BRONZE, SILVER, GOLD)
+setup/init_tables.sql          -- Create raw tables
+setup/load_raw_data.sql        -- Load data from stage (@WEATHER_DB.RAW.UPLOADS)
+setup/external_access.sql      -- (Optional) Setup external access
+setup/deploy_dbt_to_snowsight.sql  -- (Optional) Deploy dbt project to Snowsight
 ```
 
 ### 3. Run dbt Pipeline
@@ -52,10 +56,9 @@ dbt snapshot         # Track dimension changes
 ## 📊 New Features Added
 
 ### ✅ Tests (Data Quality)
-- **Temperature validation** - Ensures realistic temp ranges
-- **City mapping** - Validates all weather has city reference
-- **Duplicate detection** - Checks for duplicate hourly readings
-- **Column-level tests** - Not null, relationships, accepted ranges
+- **assert_temperature_realistic** - Ensures temp values are within -100°C to +60°C
+- **assert_no_duplicate_hourly_readings** - Checks for duplicate hourly readings per city
+- **Column-level tests** (in schema.yml) - Not null, relationships to dimensions
 
 ### 📸 Snapshots (Historical Tracking)
 - **dim_city_snapshot** - Tracks changes to city dimensions over time
@@ -66,9 +69,6 @@ dbt snapshot         # Track dimension changes
 - **Country comparison** - Compare weather patterns by country
 - **Hourly patterns** - Analyze daily temperature cycles
 
-## 📚 Documentation
-- **[DBT_FEATURES.md](DBT_FEATURES.md)** - Complete guide to tests, snapshots, analyses
-- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick command reference
 
 ## 🏗️ Architecture
 
@@ -100,4 +100,8 @@ GOLD Layer (Business Metrics)
 - **Python** - API data fetching
 - **SQL** - Data transformations
 
-
+## 📄 Useful Links
+- [Snowflake signup](https://signup.snowflake.com/)
+- [dbt documentation](https://docs.getdbt.com/docs/introduction)
+- [Snowflake SQL documentation](https://docs.snowflake.com/en/reference)
+- [Snowpark DataFrame documentation](https://docs.snowflake.com/en/developer-guide/snowpark/reference/python/latest/snowpark/dataframe)
